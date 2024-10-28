@@ -27,6 +27,7 @@ func main() {
 	defer db.Close()
 
 	categoryDb := database.NewCategory(db)
+	courseDb := database.NewCourse(db)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -35,6 +36,7 @@ func main() {
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
 		CategoryDb: categoryDb,
+		CourseDB:   courseDb,
 	}}))
 
 	corsMiddleware := cors.New(cors.Options{
